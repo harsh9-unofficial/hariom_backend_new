@@ -11,7 +11,11 @@ router.post(
   upload.array("images", 10),
   productController.createProduct
 );
-router.get("/dashboardcounter", authMiddleware, productController.dashboardCounter)
+router.get(
+  "/dashboardcounter",
+  authMiddleware,
+  productController.dashboardCounter
+);
 router.get("/", productController.getAllProducts);
 router.post("/all-products", productController.getProductsForAllProductPage);
 router.get("/new-arrivals", productController.getNewArrivals);
@@ -23,8 +27,11 @@ router.put(
   upload.array("images", 10),
   productController.updateProduct
 );
-router.delete("/:id", productController.deleteProduct);
+router.delete("/:id", authMiddleware, productController.deleteProduct);
 router.get("/subcategory/:cate_id", productController.getSubCategoryByCategory);
-router.get("/products/:sub_cate_id", productController.getProductsBySubCategory);
+router.get(
+  "/products/:sub_cate_id",
+  productController.getProductsBySubCategory
+);
 
 module.exports = router;

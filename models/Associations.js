@@ -9,6 +9,8 @@ const OrderItem = require("./OrderItem");
 const Rating = require("./Ratings");
 const Wishlist = require("./Wishlist");
 const Contact = require("./ContactUs");
+const InstaSection = require("./InstaSection");
+const Video = require("./Video");
 
 // Define associations
 // User -> Cart (One-to-Many)
@@ -114,6 +116,8 @@ OrderItem.belongsTo(Order, { foreignKey: "orderId" });
     await Category.sync({ alter: true });
     await User.sync({ alter: true });
     await Contact.sync({ alter: true });
+    await InstaSection.sync({ alter: true });
+    await Video.sync({ alter: true });
 
     // Sync tables dependent on Category
     await SubCategory.sync({ alter: true });

@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const { sequelize } = require("./models/Associations"); // Import sequelize from associations.js
+const { sequelize } = require("./models/Associations");
+
 const authRoutes = require("./routes/authRoutes");
 const contactUsRoutes = require("./routes/contactUsRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
@@ -12,7 +13,9 @@ const cartRoutes = require("./routes/cartRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const bannerRoutes = require("./routes/bannerRoutes");
-const promoBannerRoutes = require('./routes/promoBannerRoutes');
+const promoBannerRoutes = require("./routes/promoBannerRoutes");
+const instaSectionRoutes = require("./routes/instaSectionRoutes");
+const videoRoutes = require("./routes/videoRoutes");
 
 const app = express();
 
@@ -32,12 +35,13 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/banners", bannerRoutes);
-app.use('/api/promo-banners', promoBannerRoutes);
+app.use("/api/promo-banners", promoBannerRoutes);
+app.use("/api/instasection", instaSectionRoutes);
+app.use("/api/video", videoRoutes);
 
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log("Database connection established successfully.");
 
     sequelize.sync();
 

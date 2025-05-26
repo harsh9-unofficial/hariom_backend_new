@@ -7,8 +7,8 @@ const authMiddleware = require("../middleware/authMiddleware");
 // Routes
 router.post(
   "/upload",
-  upload.single("image"),
   authMiddleware,
+  upload.single("image"),
   bannerController.uploadBanner
 );
 router.get("/", bannerController.getBanners);
