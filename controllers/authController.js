@@ -79,9 +79,9 @@ exports.profile = async (req, res) => {
     const { id } = req.params;
 
     // Find user
-    const user = await User.findOne({ 
+    const user = await User.findOne({
       where: { id },
-      attributes: ["id", "fullname", "username", "email", "phone", "createdAt", "dob"]
+      attributes: ["id", "fullname", "username", "email", "phone", "createdAt"],
     });
     if (!user) {
       return res.status(401).json({ message: "No User Exists." });
@@ -89,7 +89,9 @@ exports.profile = async (req, res) => {
 
     res.json({ user });
   } catch (error) {
-    res.status(500).json({ message: "Failed to retrieve profile", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to retrieve profile", error: error.message });
   }
 };
 
@@ -133,7 +135,7 @@ exports.deleteAccount = async (req, res) => {
 exports.updateProfile = async (req, res) => {
   try {
     const { id } = req.params;
-    const { fullname, username, email, phone, password, dob } = req.body;
+    const { fullname, username, email, phone, password } = req.body;
 
     // Find user
     const user = await User.findOne({ where: { id } });
@@ -145,7 +147,9 @@ exports.updateProfile = async (req, res) => {
     if (email && email !== user.email) {
       const existingUser = await User.findOne({ where: { email } });
       if (existingUser) {
-        return res.status(400).json({ message: "Email is already registered." });
+        return res
+          .status(400)
+          .json({ message: "Email is already registered." });
       }
     }
 
@@ -155,7 +159,6 @@ exports.updateProfile = async (req, res) => {
       username: username || user.username,
       email: email || user.email,
       phone: phone || user.phone,
-      dob: dob || user.dob, // Include dob in update data
     };
 
     // Hash new password if provided
@@ -169,11 +172,15 @@ exports.updateProfile = async (req, res) => {
     // Fetch updated user
     const updatedUser = await User.findOne({
       where: { id },
-      attributes: ["id", "fullname", "username", "email", "phone", "dob", "createdAt"], // Include dob in response
+      attributes: ["id", "fullname", "username", "email", "phone", "createdAt"],
     });
 
-    res.status(200).json({ message: "Profile updated successfully.", user: updatedUser });
+    res
+      .status(200)
+      .json({ message: "Profile updated successfully.", user: updatedUser });
   } catch (error) {
-    res.status(500).json({ message: "Failed to update profile.", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to update profile.", error: error.message });
   }
 };
